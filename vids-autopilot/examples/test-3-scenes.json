@@ -1,0 +1,9 @@
+{
+  "title": "Vids Autopilot test (3 scenes)",
+  "voice": "Holt",
+  "scenes": [
+    { "start": 0,  "speech": "This is the first test scene." },
+    { "start": 10, "speech": "This is the second test scene, starting at ten seconds." },
+    { "start": 20, "speech": "This is the third and last test scene." }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Vids Autopilot",
+  "version": "1.0.0",
+  "description": "Split a Google Vids MP4 into scenes and fill AI voiceovers from a video.json script.",
+  "permissions": ["activeTab", "scripting", "storage", "debugger"],
+  "host_permissions": ["https://docs.google.com/*"],
+  "background": { "service_worker": "background.js" },
+  "action": { "default_popup": "popup.html", "default_title": "Vids Autopilot" },
+  "content_scripts": [
+    {
+      "matches": ["https://docs.google.com/videos/*"],
+      "js": ["config.js", "parse.js", "content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

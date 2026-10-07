@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Vids Autopilot</title>
+<style>
+  :root { --bg:#fff; --fg:#1f1f1f; --muted:#5f6368; --line:#dadce0; --accent:#1a73e8; --warn:#b06000; --err:#c5221f; --logbg:#f8f9fa; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#202124; --fg:#e8eaed; --muted:#9aa0a6; --line:#3c4043; --accent:#8ab4f8; --warn:#fdd663; --err:#f28b82; --logbg:#171717; }
+  }
+  * { box-sizing: border-box; }
+  body { width: 460px; margin: 0; padding: 12px; font: 13px/1.4 system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--fg); }
+  h1 { font-size: 15px; margin: 0 0 8px; }
+  .muted { color: var(--muted); }
+  .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 6px 0; }
+  .summary { padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; margin: 6px 0; min-height: 20px; }
+  .warn { color: var(--warn); }
+  .err { color: var(--err); }
+  button { padding: 6px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--fg); cursor: pointer; font: inherit; }
+  button.primary { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+  button.stop { color: var(--err); border-color: var(--err); }
+  button:disabled { opacity: .45; cursor: default; }
+  input[type=number] { width: 60px; padding: 3px; background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 4px; }
+  label { display: inline-flex; align-items: center; gap: 4px; }
+  #log { height: 260px; overflow: auto; background: var(--logbg); border: 1px solid var(--line); border-radius: 6px; padding: 6px; font: 11px/1.45 ui-monospace, Menlo, monospace; white-space: pre-wrap; word-break: break-word; }
+  #log .warn { color: var(--warn); } #log .error { color: var(--err); }
+  .status { font-weight: 600; }
+  a { color: var(--accent); cursor: pointer; }
+</style>
+</head>
+<body>
+  <h1>Vids Autopilot</h1>
+  <div id="pageMsg" class="muted">Checking tab…</div>
+
+  <div class="row">
+    <input type="file" id="file" accept=".json,.txt,application/json,text/plain">
+  </div>
+  <div id="summary" class="summary muted">No file loaded.</div>
+
+  <div class="row">
+    <label>Start from scene # <input type="number" id="startFrom" min="1" value="1"></label>
+    <label><input type="checkbox" id="overwrite"> Overwrite existing</label>
+    <label><input type="checkbox" id="updateAll"> Update all voiceovers at end</label>
+  </div>
+
+  <div class="row">
+    <button id="calibrate">Calibrate</button>
+    <button id="split">Split scenes</button>
+    <button id="fill">Fill voiceovers</button>
+    <button id="runAll" class="primary">Run all</button>
+    <button id="stop" class="stop">Stop</button>
+    <button id="inspect">Inspect DOM</button>
+  </div>
+
+  <div class="row muted">
+    <span class="status" id="status">idle</span>
+    <span id="progress"></span>
+    <span style="margin-left:auto"><a id="resetProg">Reset progress</a> · <a id="clearLog">Clear log</a></span>
+  </div>
+  <div id="log"></div>
+
+  <script src="parse.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
